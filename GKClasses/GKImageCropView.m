@@ -254,8 +254,11 @@ static CGRect GKScaleRect(CGRect rect, CGFloat scale)
     }
     
     self.cropOverlayView.frame = self.bounds;
+    //JJE - explicitly specify the content offset here
+    self.scrollView.contentOffset = CGPointMake(0,0);
     self.scrollView.frame = CGRectMake(xOffset, yOffset, size.width, size.height);
-    self.scrollView.contentSize = CGSizeMake(size.width, size.height);
+    //JJE - changed the contentsize to the new width and height so we can move it immediately
+    self.scrollView.contentSize = CGSizeMake(faktoredWidth, faktoredHeight);
     self.imageView.frame = CGRectMake(0, floor((size.height - faktoredHeight) * 0.5), faktoredWidth, faktoredHeight);
 }
 
