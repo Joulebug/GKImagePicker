@@ -9,6 +9,7 @@
 #import "GKImageCropView.h"
 #import "GKImageCropOverlayView.h"
 #import "GKResizeableCropOverlayView.h"
+#import "UIImage+FixOrientation.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -100,6 +101,11 @@ static CGRect GKScaleRect(CGRect rect, CGFloat scale)
     
     //Calculate rect that needs to be cropped
     CGRect visibleRect = self.resizableCropArea ? [self _calcVisibleRectForResizeableCropArea] : [self _calcVisibleRectForCropArea];
+    
+    //Fix the orientation so it's not rotating.
+    //https://github.com/genkikondo/GKImagePicker/commit/bbcbd31b4139bb5d73799e2b5cf4d4609d8959b6
+    UIImage * fixOrientation = [self.imageToCrop fixOrientation];
+    self.imageToCrop =  fixOrientation;
     
     //transform visible rect to image orientation
     CGAffineTransform rectTransform = [self _orientationTransformedRectOfImage:self.imageToCrop];
