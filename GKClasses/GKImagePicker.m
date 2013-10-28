@@ -19,7 +19,7 @@
 #pragma mark -
 #pragma mark Getter/Setter
 
-@synthesize cropSize, delegate, resizeableCropArea;
+@synthesize cropSize, delegate, resizeableCropArea, forceWidthScaling;
 @synthesize imagePickerController = _imagePickerController;
 
 
@@ -31,6 +31,7 @@
         
         self.cropSize = CGSizeMake(320, 320);
         self.resizeableCropArea = NO;
+        self.forceWidthScaling = NO;
         _imagePickerController = [[UIImagePickerController alloc] init];
         _imagePickerController.delegate = self;
         _imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
@@ -75,6 +76,7 @@
     cropController.sourceImage = [info objectForKey:UIImagePickerControllerOriginalImage];
     cropController.resizeableCropArea = self.resizeableCropArea;
     cropController.cropSize = self.cropSize;
+    cropController.forceWidthScaling = self.forceWidthScaling;
     cropController.delegate = self;
     [picker pushViewController:cropController animated:YES];
     

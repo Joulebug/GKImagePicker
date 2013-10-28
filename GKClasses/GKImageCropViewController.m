@@ -28,7 +28,7 @@
 #pragma mark -
 #pragma mark Getter/Setter
 
-@synthesize sourceImage, cropSize, delegate;
+@synthesize sourceImage, cropSize, delegate,forceWidthScaling;
 @synthesize imageCropView;
 @synthesize toolbar;
 @synthesize cancelButton, useButton, resizeableCropArea;
@@ -67,6 +67,7 @@
     [self.imageCropView setImageToCrop:sourceImage];
     [self.imageCropView setResizableCropArea:self.resizeableCropArea];
     [self.imageCropView setCropSize:cropSize];
+    [self.imageCropView setForceWidthScaling:self.forceWidthScaling];
     [self.view addSubview:self.imageCropView];
 }
 

@@ -248,9 +248,17 @@ static CGRect GKScaleRect(CGRect rect, CGFloat scale)
         
     } else {
         
-        faktor = height / size.height;
-        faktoredWidth = width / faktor;
-        faktoredHeight =  size.height;
+        //JJE - Added this parameter to force the picker to scale using width (ie force to square)
+        if(self.forceWidthScaling){
+            faktor = width / size.width;
+            faktoredWidth = size.width;
+            faktoredHeight =  height/faktor;
+        }
+        else {
+            faktor = height / size.height;
+            faktoredWidth = width / faktor;
+            faktoredHeight =  size.height;
+        }
     }
     
     self.cropOverlayView.frame = self.bounds;
