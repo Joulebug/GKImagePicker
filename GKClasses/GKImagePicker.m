@@ -87,6 +87,10 @@
 
 - (void)imageCropController:(GKImageCropViewController *)imageCropController didFinishWithCroppedImage:(UIImage *)croppedImage{
     
+    //reset the status bar since it disappears after the camera was there
+    [[UIApplication sharedApplication] setStatusBarHidden:NO animated:NO];
+
+    
     if ([self.delegate respondsToSelector:@selector(imagePicker:pickedImage:)]) {
         [self.delegate imagePicker:self pickedImage:croppedImage];   
     }
