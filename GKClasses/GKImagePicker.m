@@ -70,6 +70,9 @@
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    
+    //reset the status bar since it disappears after the camera was there
+    [[UIApplication sharedApplication] setStatusBarHidden:NO animated:NO];
 
     GKImageCropViewController *cropController = [[GKImageCropViewController alloc] init];
     cropController.contentSizeForViewInPopover = picker.contentSizeForViewInPopover;
@@ -86,13 +89,18 @@
 #pragma GKImagePickerDelegate
 
 - (void)imageCropController:(GKImageCropViewController *)imageCropController didFinishWithCroppedImage:(UIImage *)croppedImage{
-    
-    //reset the status bar since it disappears after the camera was there
-    [[UIApplication sharedApplication] setStatusBarHidden:NO animated:NO];
 
-    
     if ([self.delegate respondsToSelector:@selector(imagePicker:pickedImage:)]) {
         [self.delegate imagePicker:self pickedImage:croppedImage];   
+    }
+}
+
+//http://stackoverflow.com/questions/18880364/uiimagepickercontroller-breaks-status-bar-appearance
+//Set the status bar to light content for iOS 7.
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }
 }
 
